@@ -1,0 +1,15 @@
+version: '3.8' # which version of file format we are using
+
+services: # list all the different parts of the app in this case; web and db
+  web:
+   # build: . #tells docker compose to build the webservice from the docker file in the current directory
+    image: 456203800611.dkr.ecr.us-east-1.amazonaws.com/flask-mysql:latest # if you want to specify an image by pulling it from a registry i.e ECR or docker use the image tag instead of build so you dont have to build it
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mydb # means the web service depends on the db service so the db service starts first before the web service
+
+  mydb:
+    image: mysql:8 #the image being used
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw # the environmment password
